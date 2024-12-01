@@ -1,0 +1,306 @@
+loadstring(game:HttpGet"https://raw.githubusercontent.com/Basicallyy/Basicallyy/main/MinGamingV4.lua")()
+
+wait(2)
+
+print("aa")
+-- สร้าง part ใหม่
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+
+-- Function to teleport all players to LocalPlayer's position
+local function teleportPlayersToMe(XXX)
+    local localPlayer = Players.LocalPlayer
+    if not localPlayer then
+        return
+    end
+
+    local localCharacter = localPlayer.Character
+    if not localCharacter then
+        return
+    end
+
+    local humanoidRootPart = localCharacter:WaitForChild("HumanoidRootPart")
+    local currentPosition = humanoidRootPart.Position
+
+    -- Calculate the destination position (in front of the LocalPlayer)
+    local distance = XXX  -- Adjust the distance in front of the player
+    local direction = humanoidRootPart.CFrame.LookVector
+    local destinationPosition = currentPosition + direction * distance
+
+    -- Teleport all players to the calculated destination position
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= localPlayer then
+            local character = player.Character
+            if character then
+                local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    humanoidRootPart.CFrame = CFrame.new(destinationPosition)
+                end
+            end
+        end
+    end
+end
+
+-- Call the function to teleport players immediately
+
+local localPlayer = game.Players.LocalPlayer
+local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+local rootPart = character:WaitForChild("HumanoidRootPart")
+
+-- คำนวณตำแหน่งใหม่
+local newPosition = rootPart.Position + (rootPart.CFrame.lookVector * 350) + Vector3.new(0, 15, 0)
+
+local function createPartInFrontAndAbove()
+
+while true do wait()
+    -- สร้าง part ใหม่
+    local part = Instance.new("Part")
+    part.Size = Vector3.new(4, 4, 4) -- ขนาดของ part
+    part.Position = newPosition
+    part.Anchored = true -- ตั้งค่าให้ part ไม่เคลื่อนที่
+    part.Parent = workspace
+    part.Name = "Byebaih-JukJuk"
+end
+end
+
+function TP(Pos)
+    Distance = (Pos.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+    if Distance < 25 then
+        Speed = 10000
+    elseif Distance < 50 then
+        Speed = 2000
+    elseif Distance < 150 then
+        Speed = 800
+    elseif Distance < 250 then
+        Speed = 600
+    elseif Distance < 500 then
+        Speed = 400
+    elseif Distance < 750 then
+        Speed = 250
+    elseif Distance >= 1000 then
+        Speed = 200
+    end
+    game:GetService("TweenService"):Create(
+        game.Players.LocalPlayer.Character.HumanoidRootPart,
+        TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear),
+        {CFrame = Pos}
+    ):Play()
+end
+
+
+function SetPosition()
+    while true do wait()
+    
+        TP(CFrame.new(799.416748, 41.264595, 33003.8164, 0.999824941, 1.08061926e-07, -0.0187099483, -1.07730038e-07, 1, 1.87464479e-08, 0.0187099483, -1.67275438e-08, 0.999824941))
+ 
+end
+
+end
+
+
+function BringPlayer()
+    while true do wait()
+ local dt =  (game.Players.LocalPlayer.Character.HumanoidRootPart.Position  - Vector3.new(3898.87524, 57.1539268, 1825.19861, -0.234451577, 0, -0.972127795, 0, 1, 0, 0.972127795, 0, -0.234451577)).Magnitude
+    if dt < 50000000000 then
+    teleportPlayersToMe(20)
+    wait()
+    teleportPlayersToMe(40)
+    wait()
+    teleportPlayersToMe(60)
+    wait()
+    teleportPlayersToMe(80)
+    wait()
+    teleportPlayersToMe(100)
+    wait()
+    teleportPlayersToMe(120)
+    wait()
+    teleportPlayersToMe(140)
+    wait()
+    teleportPlayersToMe(160)
+    wait()
+    teleportPlayersToMe(180)
+end
+end
+end
+
+function AutoEquip()
+    while true do wait()
+    a = "Kabucha"
+        if game.Players.LocalPlayer.Backpack:FindFirstChild(a) then
+            Tool = game.Players.LocalPlayer.Backpack:FindFirstChild(a)
+            wait(.1)
+            game.Players.LocalPlayer.Character.Humanoid:EquipTool(Tool)
+        end
+    end 
+end
+
+function Autoskill()
+    while true do wait()
+        if game.Players.yovrovaz.Character:FindFirstChild("Agility") then
+    game:GetService("VirtualInputManager"):SendKeyEvent(true,Enum.KeyCode.Z,false,game) 
+    wait()
+    game:GetService("VirtualInputManager"):SendKeyEvent(false,Enum.KeyCode.Z,false,game) 
+        end
+end
+end
+
+
+function AutoAimtotarget()
+
+
+local gg = getrawmetatable(game)
+local old = gg.__namecall
+setreadonly(gg,false)
+gg.__namecall = newcclosure(function(...)
+    local method = getnamecallmethod()
+    local args = {...}
+    if tostring(method) == "FireServer" then
+        if tostring(args[1]) == "RemoteEvent" then
+            if tostring(args[2]) ~= "true" and tostring(args[2]) ~= "false" then
+                
+                    args[2] = AimBotSkillPosition
+                    return old(unpack(args))
+                
+            end
+        end
+    end
+    return old(...)
+end)
+spawn(function()
+    if  game.workspace:FindFirstChild("Byebaih-JukJuk") and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") and game.Players.LocalPlayer.Character[game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Name]:FindFirstChild("MousePos") then
+        local args = {
+            [1] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 350 + Vector3.new(0, 15, 0)
+        }
+        
+        game:GetService("Players").LocalPlayer.Character:FindFirstChild(game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Name).RemoteEvent:FireServer(unpack(args))
+    end
+end)
+
+
+end
+
+function Lock()
+    while true do wait()
+
+        local Area = game:GetService("Workspace")
+        local RunService = game:GetService("RunService")
+        local UIS = game:GetService("UserInputService")
+        local Players = game:GetService("Players")
+        local LocalPlayer = Players.LocalPlayer
+        local MyCharacter = LocalPlayer.Character
+        local MyRoot = MyCharacter:FindFirstChild("HumanoidRootPart")
+        local MyHumanoid = MyCharacter:FindFirstChild("Humanoid")
+        local Mouse = LocalPlayer:GetMouse()
+        local MyView = Area.CurrentCamera
+        local MyTeamColor = LocalPlayer.TeamColor
+        local HoldingM2 = false
+        local Active = false
+        local Lock = false
+        local Epitaph = .187 ---Note: The Bigger The Number, The More Prediction.
+        local HeadOffset = Vector3.new(0, .1, 0)
+        
+        
+
+        UIS.MouseBehavior = Enum.MouseBehavior.LockCenter
+
+
+        UIS.InputBegan:Connect(function(Input)
+                            MyView.CFrame = game.workspace:FindFirstChild("Byebaih-JukJuk").CFrame
+
+        end)
+        
+    end
+    
+end
+
+function Lock2()
+    local player = game.Players.LocalPlayer
+    local character = player.Character
+    local camera = workspace.CurrentCamera
+    local targetPart = workspace:WaitForChild("Byebaih-JukJuk") -- เปลี่ยนชื่อเป็นชื่อของ Part ที่ต้องการ
+    
+    game:GetService("RunService").RenderStepped:Connect(function()
+        if character and targetPart then
+            -- คำนวณมุมที่ต้องการให้ตัวละครมองไปที่ TargetPart
+            local characterPosition = character.HumanoidRootPart.Position
+            local targetPosition = targetPart.Position
+            
+            -- คำนวณ CFrame ใหม่ที่หันไปที่ TargetPart
+            local newCFrame = CFrame.new(characterPosition, targetPosition)
+            character.HumanoidRootPart.CFrame = newCFrame
+        end
+    end)
+    
+end
+
+
+
+
+local DiscordLib = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/UI-Libs/main/discord%20lib.txt")()
+
+local win = DiscordLib:Window("discord library")
+
+local serv = win:Server("Preview", "")
+
+local sec1 = serv:Channel("Main")
+
+
+local sec2 = serv:Channel("Toggles")
+
+sec1:Toggle("Create Part",false, function()
+pcall(function()
+    createPartInFrontAndAbove()
+end)
+end)
+
+sec1:Toggle("Start",false, function()
+    pcall(function()
+
+        SetPosition()
+
+
+
+    end)
+end)
+sec1:Toggle("Start1",false, function()
+    pcall(function()
+
+        AutoEquip()
+
+
+
+    end)
+    end)
+    sec1:Toggle("Start2",false, function()
+        pcall(function()
+
+            BringPlayer()
+ 
+        end)
+        end)
+        sec1:Toggle("Start3",false, function()
+            pcall(function()
+
+                AutoAimtotarget()
+
+            end)
+            end)
+            sec1:Toggle("Start4",false, function()
+                pcall(function()
+
+                    Autoskill()
+                end)
+                end)
+                sec1:Toggle("Start5",false, function()
+                    pcall(function()
+    
+                        Lock2()
+                    end)
+                    end)
+        
+    
+
+
+
+
+
