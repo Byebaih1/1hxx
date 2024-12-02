@@ -2,7 +2,7 @@ local Players = game:GetService("Players")
 local TeleportService = game:GetService("TeleportService")
 
 -- Function to teleport all players to LocalPlayer's position
-local function teleportPlayersToMe(XXX)
+local function teleportPlayersToMe(distance)
     local localPlayer = Players.LocalPlayer
     if not localPlayer then
         return
@@ -17,7 +17,6 @@ local function teleportPlayersToMe(XXX)
     local currentPosition = humanoidRootPart.Position
 
     -- Calculate the destination position (in front of the LocalPlayer)
-    local distance = XXX  -- Adjust the distance in front of the player
     local direction = humanoidRootPart.CFrame.LookVector
     local destinationPosition = currentPosition + direction * distance
 
@@ -26,39 +25,35 @@ local function teleportPlayersToMe(XXX)
         if player ~= localPlayer then
             local character = player.Character
             if character then
-                local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-                if humanoidRootPart then
-                    humanoidRootPart.CFrame = CFrame.new(destinationPosition)
+                local playerHumanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+                if playerHumanoidRootPart then
+                    playerHumanoidRootPart.CFrame = CFrame.new(destinationPosition)
                 end
             end
         end
     end
 end
 
-
 function BringPlayer()
-    while true do wait()
- local dt =  (game.Players.LocalPlayer.Character.HumanoidRootPart.Position  - Vector3.new(3898.87524, 57.1539268, 1825.19861, -0.234451577, 0, -0.972127795, 0, 1, 0, 0.972127795, 0, -0.234451577)).Magnitude
-    if dt < 50000000000 then
-    teleportPlayersToMe(20)
-    wait()
-    teleportPlayersToMe(40)
-    wait()
-    teleportPlayersToMe(60)
-    wait()
-    teleportPlayersToMe(80)
-    wait()
-    teleportPlayersToMe(100)
-    wait()
-    teleportPlayersToMe(120)
-    wait()
-    teleportPlayersToMe(140)
-    wait()
-    teleportPlayersToMe(160)
-    wait()
-    teleportPlayersToMe(180)
-end
-end
+    while true do
+        task.wait(1) -- Adjust the wait time as necessary
+        local localPlayer = Players.LocalPlayer
+        if not localPlayer or not localPlayer.Character then
+            return
+        end
+
+        local playerPosition = localPlayer.Character.HumanoidRootPart.Position
+        local targetPosition = Vector3.new(3898.87524, 57.1539268, 1825.19861)
+        local dt = (playerPosition - targetPosition).Magnitude
+
+        if dt < 50000000000000 then -- Adjust this threshold as necessary
+            for distance = 20, 180, 20 do
+                teleportPlayersToMe(distance)
+                task.wait(0.001) -- Adjust the wait time as necessary
+            end
+        end
+    end
 end
 
 BringPlayer()
+
