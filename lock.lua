@@ -1,6 +1,6 @@
 function AutoAimtotarget()
 
-    while true do wait()
+    while true do wait(0.1)
     local gg = getrawmetatable(game)
     local old = gg.__namecall
     setreadonly(gg,false)
